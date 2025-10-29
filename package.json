@@ -1,0 +1,30 @@
+{
+  "name": "nnkb-final-monorepo",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "admin",
+    "backend",
+    "frontend"
+  ],
+  "engines": {
+    "node": ">=16",
+    "npm": ">=7"
+  },
+  "scripts": {
+    "install:all": "npm install --workspaces",
+    "build": "npm run build -ws",
+    "dev": "npm run dev -ws",
+    "start": "npm run start -w backend",
+    "kill-ports": "node scripts/killPorts.js",
+    "predev:be-fe": "npm run kill-ports -- 4000 5173",
+    "predev:all": "npm run kill-ports -- 4000 5173 5174",
+    "prestart": "npm run kill-ports -- 4000",
+    "dev:be-fe": "concurrently -n backend,frontend -c blue,green \"npm run server -w backend\" \"npm run dev -w frontend\"",
+    "dev:all": "concurrently -n backend,frontend,admin -c blue,green,magenta \"npm run server -w backend\" \"npm run dev -w frontend -- --open\" \"npm run dev -w admin -- --port 5174\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "kill-port": "^2.0.1"
+  }
+}
