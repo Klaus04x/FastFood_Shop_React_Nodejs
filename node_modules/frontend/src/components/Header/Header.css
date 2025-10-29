@@ -1,9 +1,11 @@
 .header{
     height: 34vw;
     margin: 30px auto;
-    background: url('/header_img.png') no-repeat;
-    background-size: contain;
+    background: linear-gradient(180deg, rgba(15,23,42,0.55), rgba(15,23,42,0.25)), url('/header_img.png') no-repeat center/cover;
     position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
 }
 
 .header-contents{
@@ -18,21 +20,11 @@
     animation: fadeIn 3s;
 }
 
-.header-contents h2{
-    font-weight: 500;
-    color: white;
-    font-size: max(4.5vw, 22px);
-}
+.header-contents h2{ font-weight: 600; color: #ffffff; font-size: max(4.2vw, 22px); text-shadow: 0 2px 12px rgba(0,0,0,0.25); }
 
-.header-contents button{
-    border: none;
-    color: #747474;
-    font-weight: 500;
-    padding: 1vw 2.3vw;
-    background-color: white;
-    font-size: max(1vw,13px);
-    border-radius: 50px;
-}
+.header-contents p{ color: rgba(255,255,255,0.88); text-shadow: 0 1px 8px rgba(0,0,0,0.2); }
+
+.header-contents button{ font-weight: 600; }
 
 @media (max-width:750px) {
     .header-contents{

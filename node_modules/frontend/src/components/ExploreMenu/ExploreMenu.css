@@ -11,7 +11,9 @@
 
 .explore-menu-text{
     max-width: 60%;
-    columns: #808080;
+    color: var(--text);
+    opacity: 0.95;
+    line-height: 1.6;
 }
 
 .explore-menu-list{
