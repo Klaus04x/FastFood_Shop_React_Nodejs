@@ -1,8 +1,20 @@
 .navbar{
-    padding: 20px 0px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding: 0;
+    background: var(--bg);
+    backdrop-filter: saturate(180%) blur(6px);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow);
+}
+
+.navbar-inner{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 16px;
+    padding: 14px 0;
 }
 
 .navbar .logo{
@@ -17,31 +29,44 @@
     font-size: 18px;
 }
 
+.navbar-menu a{
+    position: relative;
+}
+.navbar-menu a::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -8px;
+    margin: auto;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width .2s ease;
+}
+.navbar-menu a:hover::after, .navbar .active::after{ width: 100%; }
+
 .navbar-right{
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 20px;
 }
 
 .navbar button{
-    background: transparent;
-    font-size: 16px;
-    color: #49557e;
-    border: 1px solid tomato;
-    padding: 10px 30px;
-    border-radius: 50px;
+    font-size: 15px;
+    border-radius: var(--radius);
+    border: 1px solid var(--primary);
+    color: #fff;
+    background: var(--primary);
+    padding: 10px 14px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: .2s ease;
+    box-shadow: var(--shadow);
 }
 
-.navbar button:hover{
-    background-color:#fff4f2;
-}
+.navbar button:hover{ background: var(--primary-600); transform: translateY(-1px); }
 
-.navbar .active{
-    padding-bottom: 2px;
-    border-bottom: 2px solid #49557e;
-}
+.navbar .active{ color: var(--primary); }
 
 .navbar li{
     cursor: pointer;
@@ -59,6 +84,14 @@
     border-radius: 5px;
     top: -8px;
     right: -8px;
+    box-shadow: 0 0 0 0 rgba(255, 99, 71, 0.6);
+    animation: pulse 1.6s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 99, 71, 0.6); }
+    70% { box-shadow: 0 0 0 8px rgba(255, 99, 71, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 99, 71, 0); }
 }
 
 @media (max-width:1050px) {
@@ -115,11 +148,11 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    background-color:#fff2ef;
-    padding: 12px 25px;
-    border-radius: 4px;
-    border: 1px solid tomato;
-    outline: 2px solid white;
+    background:#fff;
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
     list-style: none;
 }
 
@@ -134,9 +167,7 @@
     width: 20px;
 }
 
-.nav-profile-dropdown li:hover{
-    color: tomato;
-}
+.nav-profile-dropdown li:hover{ color: var(--primary); }
 
 @media (max-width:750px) {
     .navbar-menu{
