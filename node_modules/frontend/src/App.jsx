@@ -1,34 +1,37 @@
-import React, { useState } from 'react'
-import Navbar from './components/Navbar/Navbar'
+import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home/Home'
 import Cart from './pages/Cart/Cart'
 import PlaceOrder from './pages/PlaceOrder/PlaceOrder'
-import Footer from './components/Footer/Footer'
-import LoginPopup from './components/LoginPopup/LoginPopup'
 import Verify from './pages/Verify/Verify'
 import MyOrders from './pages/MyOrders/MyOrders'
-import ScrollToTop from './components/ScrollToTop.jsx'
+import AuthPage from './pages/Auth/AuthPage' // Import the new AuthPage
+import MainLayout from './layouts/MainLayout'
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute' // Import ProtectedRoute
+import BlankLayout from './layouts/BlankLayout'
 
 const App = () => {
 
-  const [showLogin, setShowLogin] = useState(false)
-
   return (
     <>
-      {showLogin?<LoginPopup setShowLogin={setShowLogin}/>:<></>}
-      <div className='app'>
-        <Navbar setShowLogin={setShowLogin}/>
-        <ScrollToTop /> {/* 2. Thêm component vào đây */}
-        <Routes>
-          <Route path='/' element={<Home/>}/>
-          <Route path='/cart' element={<Cart/>}/>
-          <Route path='/order' element={<PlaceOrder/>}/>
-          <Route path='/verify' element={<Verify/>}/>
-          <Route path='/myorders' element={<MyOrders/>}/>
-        </Routes>
-      </div>
-      <Footer/>
+      {/* Component LoginPopup (modal) đã được loại bỏ. Đăng nhập/Đăng ký giờ sẽ là một trang riêng. */}
+      <Routes>
+        {/* Routes sử dụng layout có Navbar và Footer */}
+        <Route element={<MainLayout />}>
+          <Route path='/' element={<Home />} />
+          <Route path='/verify' element={<Verify />} />
+          {/* Routes cần đăng nhập */}
+          <Route element={<ProtectedRoute />}>
+            <Route path='/cart' element={<Cart />} />
+            <Route path='/order' element={<PlaceOrder />} />
+            <Route path='/myorders' element={<MyOrders />} />
+          </Route>
+        </Route>
+        {/* Route cho trang login, không có Navbar và Footer */}
+        <Route path='/login' element={<BlankLayout />}>
+          <Route index element={<AuthPage />} />
+        </Route>
+      </Routes>
     </>
   )
 }
