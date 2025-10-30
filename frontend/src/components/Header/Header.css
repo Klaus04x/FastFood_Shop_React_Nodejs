@@ -1,6 +1,5 @@
 .header{
     height: 34vw;
-    margin: 30px auto;
     background: linear-gradient(180deg, rgba(15,23,42,0.55), rgba(15,23,42,0.25)), url('/header_img.png') no-repeat center/cover;
     position: relative;
     border-radius: var(--radius);

@@ -1,5 +1,6 @@
 .cart{
-    margin-top: 100px;
+    margin-top: 30px;
+    padding: 0 10%;
 }
 
 .cart-items-title{
@@ -63,6 +64,12 @@
     cursor: pointer;
 }
 
+.cart-total button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    color: #666;
+}
+
 .cart-promocode{
     flex: 1;
 }
@@ -94,6 +101,18 @@
     border: none;
     color:white;
     border-radius: 4px;
+}
+
+.promo-message {
+  margin-top: 10px;
+}
+
+.promo-message.success {
+  color: #28a745; /* Màu xanh lá cây */
+}
+
+.promo-message.error {
+  color: tomato; /* Màu đỏ */
 }
 
 @media (max-width:750px) {

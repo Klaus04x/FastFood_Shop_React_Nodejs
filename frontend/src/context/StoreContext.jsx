@@ -11,6 +11,8 @@ const StoreContextProvider = (props) => {
     const url = API_BASE_URL;
     const [token,setToken] = useState("");
     const [food_list,setFoodList] = useState([])
+    const [authLoading, setAuthLoading] = useState(true); // Thêm state loading
+    const [discount, setDiscount] = useState(0); // State cho số tiền giảm giá
 
 
     const addToCart = async (itemId) => {
@@ -50,6 +52,18 @@ const StoreContextProvider = (props) => {
         setFoodList(response.data.data)
     }
 
+    const applyPromoCode = async (code) => {
+        try {
+            const response = await axios.post(url + "/api/promocode/validate", { code });
+            if (response.data.success) {
+                setDiscount(response.data.discount); // Giả sử giảm $5
+            }
+            return response.data; // Trả về toàn bộ response để component xử lý message
+        } catch (error) {
+            return { success: false, message: "Error applying promo code." };
+        }
+    }
+
     const loadCartData = async (token) => {
         const response = await axios.post(url+"/api/cart/get",{},{headers:{token}});
         setCartItems(response.data.cartData);
@@ -62,6 +76,7 @@ const StoreContextProvider = (props) => {
                 setToken(localStorage.getItem("token"));
                 await loadCartData(localStorage.getItem("token"));
             }
+            setAuthLoading(false); // Đánh dấu quá trình tải token đã hoàn tất
         }
         loadData();
     },[])
@@ -75,7 +90,10 @@ const StoreContextProvider = (props) => {
         getTotalCartAmount,
         url,
         token,
-        setToken
+        setToken,
+        authLoading, // Cung cấp state loading cho context
+        applyPromoCode, // Cung cấp hàm áp dụng mã
+        discount // Cung cấp state giảm giá
     }
     
     return (

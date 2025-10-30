@@ -1,13 +1,27 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import './Cart.css'
 import { storeContext } from '../../context/StoreContext'
 import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
 
-  const { cartItems, food_list, removeFromCart, getTotalCartAmount, url } = useContext(storeContext);
+  const { cartItems, food_list, removeFromCart, getTotalCartAmount, url, discount, applyPromoCode } = useContext(storeContext);
+  const [promoInput, setPromoInput] = useState('');
+  const [promoMessage, setPromoMessage] = useState({ text: '', success: null });
 
   const navigate = useNavigate();
+
+  const handleApplyPromo = async () => {
+    if (!promoInput) {
+      setPromoMessage({ text: "Please enter a promo code.", success: false });
+      return;
+    }
+    const response = await applyPromoCode(promoInput);
+    setPromoMessage({ text: response.message, success: response.success });
+  };
+
+  const totalAmount = getTotalCartAmount();
+  const finalTotal = totalAmount > 0 ? totalAmount + 2 - discount : 0;
 
   return (
     <div>
@@ -47,28 +61,40 @@ const Cart = () => {
             <div>
               <div className="cart-total-details">
                 <p>Subtotal</p>
-                <p>${getTotalCartAmount()}</p>
+                <p>${totalAmount}</p>
               </div>
               <hr />
               <div className="cart-total-details">
                 <p>Delivery Fee</p>
-                <p>{getTotalCartAmount()===0?0:2}</p>
+                <p>${totalAmount === 0 ? 0 : 2}</p>
               </div>
               <hr />
+              {discount > 0 && (
+                <>
+                  <div className="cart-total-details">
+                    <p>Discount</p>
+                    <p>-${discount}</p>
+                  </div>
+                  <hr />
+                </>
+              )}
               <div className="cart-total-details">
                 <b>Total</b>
-                <b>${getTotalCartAmount()===0?0:getTotalCartAmount()+2}</b>
+                <b>${finalTotal < 0 ? 0 : finalTotal}</b>
               </div>
             </div>
-            <button onClick={()=>navigate('/order')}>PROCEED TO CHECKOUT</button>
+            <button onClick={()=>navigate('/order')} disabled={totalAmount===0}>PROCEED TO CHECKOUT</button>
           </div>
           <div className="cart-promocode">
             <div>
               <p>If you have a promo code, Enter it here</p>
               <div className='cart-promocode-input'>
-                <input type="text" placeholder='promo code' />
-                <button>Submit</button>
+                <input type="text" value={promoInput} onChange={(e) => setPromoInput(e.target.value)} placeholder='Promo Code' />
+                <button onClick={handleApplyPromo}>Submit</button>
               </div>
+              {promoMessage.text && (
+                <p className={`promo-message ${promoMessage.success ? 'success' : 'error'}`}>{promoMessage.text}</p>
+              )}
             </div>
           </div>
         </div>
