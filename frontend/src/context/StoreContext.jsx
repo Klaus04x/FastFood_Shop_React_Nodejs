@@ -11,8 +11,9 @@ const StoreContextProvider = (props) => {
     const url = API_BASE_URL;
     const [token,setToken] = useState("");
     const [food_list,setFoodList] = useState([])
-    const [authLoading, setAuthLoading] = useState(true); // Thêm state loading
-    const [discount, setDiscount] = useState(0); // State cho số tiền giảm giá
+    const [authLoading, setAuthLoading] = useState(true);
+    const [discount, setDiscount] = useState(0);
+    const [categories, setCategories] = useState([]);
 
 
     const addToCart = async (itemId) => {
@@ -52,13 +53,24 @@ const StoreContextProvider = (props) => {
         setFoodList(response.data.data)
     }
 
+    const fetchCategories = async () => {
+        try {
+            const response = await axios.get(url+"/api/category/list");
+            if (response.data.success) {
+                setCategories(response.data.data);
+            }
+        } catch (error) {
+            console.log("Error fetching categories:", error);
+        }
+    }
+
     const applyPromoCode = async (code) => {
         try {
             const response = await axios.post(url + "/api/promocode/validate", { code });
             if (response.data.success) {
-                setDiscount(response.data.discount); // Giả sử giảm $5
+                setDiscount(response.data.discount);
             }
-            return response.data; // Trả về toàn bộ response để component xử lý message
+            return response.data;
         } catch (error) {
             return { success: false, message: "Error applying promo code." };
         }
@@ -72,11 +84,12 @@ const StoreContextProvider = (props) => {
     useEffect(()=>{
         async function loadData() {
             await fetchFoodList();
+            await fetchCategories();
             if (localStorage.getItem("token")){
                 setToken(localStorage.getItem("token"));
                 await loadCartData(localStorage.getItem("token"));
             }
-            setAuthLoading(false); // Đánh dấu quá trình tải token đã hoàn tất
+            setAuthLoading(false);
         }
         loadData();
     },[])
@@ -91,9 +104,10 @@ const StoreContextProvider = (props) => {
         url,
         token,
         setToken,
-        authLoading, // Cung cấp state loading cho context
-        applyPromoCode, // Cung cấp hàm áp dụng mã
-        discount // Cung cấp state giảm giá
+        authLoading,
+        applyPromoCode,
+        discount,
+        categories
     }
     
     return (

@@ -5,6 +5,9 @@ import {Route, Routes} from 'react-router-dom'
 import Add from './pages/Add/Add'
 import List from './pages/List/List'
 import Orders from './pages/Orders/Orders'
+import Categories from './pages/Categories/Categories'
+import Edit from './pages/Edit/Edit'
+import Statistics from './pages/Statistics/Statistics'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { API_BASE_URL } from './config';
@@ -23,7 +26,10 @@ const App = () => {
         <Routes>
           <Route path='/add' element={<Add url={url}/>}/>
           <Route path='/list' element={<List url={url}/>}/>
+          <Route path='/edit/:id' element={<Edit url={url}/>}/>
           <Route path='/orders' element={<Orders url={url}/>}/>
+          <Route path='/categories' element={<Categories url={url}/>}/>
+          <Route path='/statistics' element={<Statistics url={url}/>}/>
         </Routes>
       </div>
     </div>

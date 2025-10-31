@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Add.css'
 import { assets } from '../../assets/assets'
 import axios from "axios"
@@ -6,14 +6,34 @@ import { toast } from 'react-toastify'
 
 
 const Add = ({url}) => {
-   
+
   const [image, setImage] = useState(false);
+  const [categories, setCategories] = useState([]);
   const [data, setData] = useState({
     name: "",
     description:"",
     price:"",
-    category: "Salad"
+    category: ""
   })
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(`${url}/api/category/list`);
+      if (response.data.success) {
+        setCategories(response.data.data);
+        // Set first category as default
+        if (response.data.data.length > 0) {
+          setData(prev => ({ ...prev, category: response.data.data[0].name }));
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchCategories();
+  }, [])
 
   const onChangeHandler = (event) =>{
     const name = event.target.name;
@@ -23,10 +43,18 @@ const Add = ({url}) => {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
+
+    // Validate price
+    const price = Number(data.price);
+    if (price <= 0) {
+      toast.error("Price must be greater than 0");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("name",data.name)
     formData.append("description",data.description)
-    formData.append("price",Number(data.price))
+    formData.append("price",price)
     formData.append("category",data.category)
     formData.append("image", image)
     const response = await axios.post(`${url}/api/food/add`,formData);
@@ -35,7 +63,7 @@ const Add = ({url}) => {
         name : "",
         description:"",
         price:"",
-        category: "Salad"
+        category: categories.length > 0 ? categories[0].name : ""
       })
       setImage(false)
       toast.success(response.data.message)
@@ -66,20 +94,16 @@ const Add = ({url}) => {
         <div className="add-category-price">
           <div className="add-category flex-col">
             <p>Product category</p>
-            <select onChange={onChangeHandler} name="category">
-              <option value="Salad">Salad</option>
-              <option value="Rolls">Rolls</option>
-              <option value="Deserts">Deserts</option>
-              <option value="Sandwich">Sandwich</option>
-              <option value="Cake">Cake</option>
-              <option value="Pure Veg">Pure Veg</option>
-              <option value="Pasta">Pasta</option>
-              <option value="Noodles">Noodles</option>
+            <select onChange={onChangeHandler} value={data.category} name="category" required>
+              <option value="">Select Category</option>
+              {categories.map((category, index) => (
+                <option key={index} value={category.name}>{category.name}</option>
+              ))}
             </select>
           </div>
           <div className="add-price flex-col">
             <p>Product price</p>
-            <input onChange={onChangeHandler} value={data.price} type="Number" name='price' placeholder='$20' />
+            <input onChange={onChangeHandler} value={data.price} type="Number" name='price' placeholder='$20' min="0.01" step="0.01" required />
           </div>
         </div>
         <button type='submit' className='add-btn'>ADD</button>
