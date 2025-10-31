@@ -1,0 +1,84 @@
+.edit {
+    width: 70%;
+    margin-left: 5vw;
+    margin-top: 50px;
+    color: #6d6d6d;
+    font-size: 16px;
+}
+
+.edit .flex-col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.edit-img-upload img {
+    width: 120px;
+    cursor: pointer;
+}
+
+.edit-img-upload .image-note {
+    font-size: 12px;
+    color: #999;
+    margin-top: 5px;
+}
+
+.edit-product-name input {
+    padding: 10px;
+    outline-color: tomato;
+}
+
+.edit-product-description textarea {
+    padding: 10px;
+    outline-color: tomato;
+}
+
+.edit-category-price {
+    display: flex;
+    gap: 30px;
+}
+
+.edit-category select {
+    max-width: 120px;
+    padding: 10px;
+    outline-color: tomato;
+}
+
+.edit-price input {
+    max-width: 120px;
+    padding: 10px;
+    outline-color: tomato;
+}
+
+.edit-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.edit-btn, .cancel-btn {
+    max-width: 150px;
+    padding: 10px 30px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.edit-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: #218838;
+}
+
+.cancel-btn {
+    background-color: #6c757d;
+    color: white;
+}
+
+.cancel-btn:hover {
+    background-color: #5a6268;
+}

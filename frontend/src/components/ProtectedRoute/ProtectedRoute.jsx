@@ -6,7 +6,6 @@ const ProtectedRoute = () => {
   const { token, authLoading } = useContext(storeContext);
 
   if (authLoading) {
-    // Bạn có thể hiển thị một component loading spinner ở đây
     return <div>Loading...</div>;
   }
 

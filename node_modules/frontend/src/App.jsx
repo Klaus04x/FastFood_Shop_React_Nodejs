@@ -5,16 +5,15 @@ import Cart from './pages/Cart/Cart'
 import PlaceOrder from './pages/PlaceOrder/PlaceOrder'
 import Verify from './pages/Verify/Verify'
 import MyOrders from './pages/MyOrders/MyOrders'
-import AuthPage from './pages/Auth/AuthPage' // Import the new AuthPage
+import AuthPage from './pages/Auth/AuthPage'
 import MainLayout from './layouts/MainLayout'
-import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute' // Import ProtectedRoute
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 import BlankLayout from './layouts/BlankLayout'
 
 const App = () => {
 
   return (
     <>
-      {/* Component LoginPopup (modal) đã được loại bỏ. Đăng nhập/Đăng ký giờ sẽ là một trang riêng. */}
       <Routes>
         {/* Routes sử dụng layout có Navbar và Footer */}
         <Route element={<MainLayout />}>

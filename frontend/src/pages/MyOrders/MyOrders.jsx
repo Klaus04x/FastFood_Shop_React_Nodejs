@@ -3,20 +3,34 @@ import './MyOrders.css'
 import { assets } from '../../assets/assets';
 import { storeContext } from '../../context/StoreContext';
 import axios from 'axios';
+import { useSearchParams } from 'react-router-dom';
 
 const MyOrders = () => {
 
     const {url, token} = useContext(storeContext);
     const [data, setData] = useState([]);
+    const [searchParams] = useSearchParams();
 
     const fetchOrders = async () => {
         const response = await axios.post(url+"/api/order/userorders",{},{headers:{token}});
         setData(response.data.data);
     }
 
+    const handleCancelledOrder = async () => {
+        const success = searchParams.get("success");
+        const orderId = searchParams.get("orderId");
+
+        // Nếu thanh toán bị hủy (success=false)
+        if (success === "false" && orderId) {
+            await axios.post(url+"/api/order/verify", {success, orderId});
+        }
+    }
+
     useEffect(()=>{
         if (token) {
-            fetchOrders();
+            handleCancelledOrder().then(() => {
+                fetchOrders();
+            });
         }
     },[token])
 

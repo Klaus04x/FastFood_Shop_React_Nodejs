@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react'
 import './List.css'
 import axios from "axios"
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 const List = ({url}) => {
 
+  const navigate = useNavigate();
   const [list, setList] = useState([]);
 
   const fetchList = async () => {
@@ -41,7 +43,7 @@ const List = ({url}) => {
           <b>Name</b>
           <b>Category</b>
           <b>Price</b>
-          <b>Action</b>
+          <b>Actions</b>
         </div>
         {list.map((item,index)=>{
             return (
@@ -50,7 +52,10 @@ const List = ({url}) => {
                   <p>{item.name}</p>
                   <p>{item.category}</p>
                   <p>${item.price}</p>
-                  <p onClick={()=>removeFood(item._id)} className='cursor'>x</p>  
+                  <div className='action-buttons'>
+                    <button onClick={()=>navigate(`/edit/${item._id}`)} className='edit-btn-small'>Edit</button>
+                    <button onClick={()=>removeFood(item._id)} className='delete-btn-small'>Delete</button>
+                  </div>
               </div>
             )
         })}
