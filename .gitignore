@@ -32,4 +32,6 @@ npm-debug.log*
 Thumbs.db
 
 # Uploads (optional - uncomment if you don't want to upload images)
-# backend/uploads/
+# backend/uploads/node_modules/
+**/.env
+.env
