@@ -46,6 +46,10 @@
     font-size: 13px;
 }
 
+.categories-table-format:last-child {
+    margin-bottom: 60px;
+}
+
 .categories-table-format.title {
     background-color: #f9f9f9;
     font-weight: 600;

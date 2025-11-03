@@ -44,9 +44,9 @@ const Cart = () => {
                   <div className='cart-items-title cart-items-item'>
                     <img src={url+"/images/"+item.image} alt="" />
                     <p>{item.name}</p>
-                    <p>${item.price}</p>
+                    <p>${item.price.toFixed(2)}</p>
                     <p>{cartItems[item._id]}</p>
-                    <p>${item.price * cartItems[item._id]}</p>
+                    <p>${(item.price * cartItems[item._id]).toFixed(2)}</p>
                     <p onClick={()=>removeFromCart(item._id)} className='cross'>x</p>
                   </div>
                   <hr />
@@ -61,26 +61,26 @@ const Cart = () => {
             <div>
               <div className="cart-total-details">
                 <p>Subtotal</p>
-                <p>${totalAmount}</p>
+                <p>${totalAmount.toFixed(2)}</p>
               </div>
               <hr />
               <div className="cart-total-details">
                 <p>Delivery Fee</p>
-                <p>${totalAmount === 0 ? 0 : 2}</p>
+                <p>${totalAmount === 0 ? (0).toFixed(2) : (2).toFixed(2)}</p>
               </div>
               <hr />
               {discount > 0 && (
                 <>
                   <div className="cart-total-details">
                     <p>Discount</p>
-                    <p>-${discount}</p>
+                    <p>-${discount.toFixed(2)}</p>
                   </div>
                   <hr />
                 </>
               )}
               <div className="cart-total-details">
                 <b>Total</b>
-                <b>${finalTotal < 0 ? 0 : finalTotal}</b>
+                <b>${(finalTotal < 0 ? 0 : finalTotal).toFixed(2)}</b>
               </div>
             </div>
             <button onClick={()=>navigate('/order')} disabled={totalAmount===0}>PROCEED TO CHECKOUT</button>

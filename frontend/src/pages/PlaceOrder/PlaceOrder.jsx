@@ -135,26 +135,26 @@ const PlaceOrder = () => {
             <div>
               <div className="cart-total-details">
                 <p>Subtotal</p>
-                <p>${totalAmount}</p>
+                <p>${totalAmount.toFixed(2)}</p>
               </div>
               <hr />
               <div className="cart-total-details">
                 <p>Delivery Fee</p>
-                <p>${totalAmount===0?0:2}</p>
+                <p>${totalAmount===0?(0).toFixed(2):(2).toFixed(2)}</p>
               </div>
               <hr />
               {discount > 0 && (
                 <>
                   <div className="cart-total-details">
                     <p>Discount</p>
-                    <p>-${discount}</p>
+                    <p>-${discount.toFixed(2)}</p>
                   </div>
                   <hr />
                 </>
               )}
               <div className="cart-total-details">
                 <b>Total</b>
-                <b>${totalAmount===0?0:totalAmount + 2 - discount}</b>
+                <b>${totalAmount===0?(0).toFixed(2):(totalAmount + 2 - discount).toFixed(2)}</b>
               </div>
             </div>
             <button type='submit'>PROCEED TO PAYMENT </button>

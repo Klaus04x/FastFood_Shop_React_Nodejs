@@ -6,6 +6,7 @@ import PlaceOrder from './pages/PlaceOrder/PlaceOrder'
 import Verify from './pages/Verify/Verify'
 import MyOrders from './pages/MyOrders/MyOrders'
 import AuthPage from './pages/Auth/AuthPage'
+import OAuthCallback from './pages/Auth/OAuthCallback'
 import MainLayout from './layouts/MainLayout'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 import BlankLayout from './layouts/BlankLayout'
@@ -30,6 +31,8 @@ const App = () => {
         <Route path='/login' element={<BlankLayout />}>
           <Route index element={<AuthPage />} />
         </Route>
+        {/* OAuth callback route */}
+        <Route path='/auth/callback' element={<OAuthCallback />} />
       </Routes>
     </>
   )

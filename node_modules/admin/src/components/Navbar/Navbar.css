@@ -12,3 +12,6 @@
 .navbar .profilet{
     width: 40px;
 }
+.navbar .profile{
+    max-width: 60px;
+}
