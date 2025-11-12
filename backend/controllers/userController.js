@@ -71,4 +71,42 @@ const registerUser = async (req,res) => {
     }
 }
 
-export {loginUser,registerUser}
+// get user profile
+const getUserProfile = async (req, res) => {
+    try {
+        const user = await userModel.findById(req.body.userId).select('-password');
+        if (!user) {
+            return res.json({ success: false, message: "User not found" });
+        }
+        res.json({ success: true, user });
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: "Error" });
+    }
+}
+
+// update user profile
+const updateUserProfile = async (req, res) => {
+    try {
+        const { name, avatar } = req.body;
+        const userId = req.body.userId;
+
+        const user = await userModel.findById(userId);
+        if (!user) {
+            return res.json({ success: false, message: "User not found" });
+        }
+
+        // Update fields
+        if (name) user.name = name;
+        if (avatar !== undefined) user.avatar = avatar; // Allow empty string to remove avatar
+
+        await user.save();
+
+        res.json({ success: true, message: "Profile updated successfully" });
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: "Error updating profile" });
+    }
+}
+
+export {loginUser, registerUser, getUserProfile, updateUserProfile}

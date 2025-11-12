@@ -1,0 +1,353 @@
+.account-settings {
+    width: 100%;
+}
+
+.account-settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.account-settings-header h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1a202c;
+    margin: 0;
+}
+
+.btn-edit-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: #667eea;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-edit-profile:hover {
+    background-color: #5568d3;
+}
+
+.account-settings-content {
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    padding: 32px;
+}
+
+/* View Mode */
+.profile-view {
+    display: flex;
+    gap: 40px;
+    align-items: start;
+}
+
+.profile-avatar-large {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.profile-avatar-large img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-fallback {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 48px;
+    font-weight: 600;
+}
+
+.profile-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.info-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.info-row label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.info-row p {
+    font-size: 16px;
+    color: #1a202c;
+    margin: 0;
+}
+
+/* Edit Mode */
+.profile-edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-section h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a202c;
+    margin: 0;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.avatar-edit-section {
+    display: flex;
+    gap: 32px;
+    align-items: start;
+}
+
+.avatar-input-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.avatar-input-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #2d3748;
+}
+
+.avatar-input-group input {
+    padding: 10px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #1a202c;
+    transition: border-color 0.2s;
+}
+
+.avatar-input-group input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.input-hint {
+    font-size: 12px;
+    color: #718096;
+    margin: 0;
+}
+
+.upload-divider {
+    display: flex;
+    align-items: center;
+    margin: 16px 0;
+    text-align: center;
+}
+
+.upload-divider::before,
+.upload-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.upload-divider span {
+    padding: 0 12px;
+    color: #94a3b8;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.btn-upload-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background-color: #f7fafc;
+    border: 2px dashed #cbd5e1;
+    border-radius: 8px;
+    color: #4a5568;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-upload-avatar:hover {
+    background-color: #edf2f7;
+    border-color: #667eea;
+    color: #667eea;
+}
+
+.btn-upload-avatar:active {
+    transform: scale(0.98);
+}
+
+input[type="file"]:disabled + .btn-upload-avatar {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #2d3748;
+}
+
+.form-group input {
+    padding: 10px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #1a202c;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.disabled-input {
+    background-color: #f7fafc;
+    color: #a0aec0;
+    cursor: not-allowed;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 24px;
+    border-top: 2px solid #e2e8f0;
+}
+
+.btn-cancel-edit,
+.btn-save-profile {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-cancel-edit {
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    color: #4a5568;
+}
+
+.btn-cancel-edit:hover:not(:disabled) {
+    background-color: #f7fafc;
+}
+
+.btn-save-profile {
+    background-color: #667eea;
+    border: none;
+    color: white;
+}
+
+.btn-save-profile:hover:not(:disabled) {
+    background-color: #5568d3;
+}
+
+.btn-cancel-edit:disabled,
+.btn-save-profile:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .account-settings-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .btn-edit-profile {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .account-settings-content {
+        padding: 24px;
+    }
+
+    .profile-view {
+        flex-direction: column;
+        gap: 24px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-info {
+        width: 100%;
+    }
+
+    .avatar-edit-section {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .btn-cancel-edit,
+    .btn-save-profile {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-avatar-large {
+        width: 120px;
+        height: 120px;
+    }
+
+    .avatar-fallback {
+        font-size: 40px;
+    }
+
+    .account-settings-content {
+        padding: 20px;
+    }
+}

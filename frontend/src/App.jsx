@@ -5,6 +5,7 @@ import Cart from './pages/Cart/Cart'
 import PlaceOrder from './pages/PlaceOrder/PlaceOrder'
 import Verify from './pages/Verify/Verify'
 import MyOrders from './pages/MyOrders/MyOrders'
+import Profile from './pages/Profile/Profile'
 import AuthPage from './pages/Auth/AuthPage'
 import OAuthCallback from './pages/Auth/OAuthCallback'
 import MainLayout from './layouts/MainLayout'
@@ -25,6 +26,7 @@ const App = () => {
             <Route path='/cart' element={<Cart />} />
             <Route path='/order' element={<PlaceOrder />} />
             <Route path='/myorders' element={<MyOrders />} />
+            <Route path='/profile' element={<Profile />} />
           </Route>
         </Route>
         {/* Route cho trang login, không có Navbar và Footer */}

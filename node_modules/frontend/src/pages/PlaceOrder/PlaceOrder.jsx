@@ -20,6 +20,9 @@ const PlaceOrder = () => {
     phone: ""
   })
   const [errors, setErrors] = useState({});
+  const [addresses, setAddresses] = useState([]);
+  const [selectedAddress, setSelectedAddress] = useState(null);
+  const [showAddressList, setShowAddressList] = useState(false);
 
   const onChangeHandler = (event) => {
     const name = event.target.name;
@@ -54,6 +57,23 @@ const PlaceOrder = () => {
     return newErrors;
   }
 
+  // Select saved address
+  const selectSavedAddress = (address) => {
+    setData({
+      firstName: address.firstName,
+      lastName: address.lastName,
+      email: address.email,
+      street: address.street,
+      city: address.city,
+      state: address.state,
+      zipcode: address.zipcode,
+      country: address.country,
+      phone: address.phone
+    });
+    setSelectedAddress(address._id);
+    setShowAddressList(false);
+  };
+
   const placeOrder = async (event) => {
     event.preventDefault();
     const validationErrors = validateForm();
@@ -83,6 +103,12 @@ const PlaceOrder = () => {
     let response = await axios.post(url+"/api/order/place",orderData,{headers:{token}});
     if (response.data.success){
       const {session_url} = response.data;
+      // Save address to user's address book if not already saved
+      if (!selectedAddress) {
+        await axios.post(`${url}/api/address/add`, {
+          address: { ...data, isDefault: addresses.length === 0 }
+        }, { headers: { token } });
+      }
       window.location.replace(session_url);
     }
     else{
@@ -94,16 +120,79 @@ const PlaceOrder = () => {
 
   const totalAmount = getTotalCartAmount();
 
+  // Fetch saved addresses
+  const fetchAddresses = async () => {
+    try {
+      const response = await axios.post(`${url}/api/address/list`, {}, {
+        headers: { token }
+      });
+      if (response.data.success) {
+        setAddresses(response.data.addresses);
+        // Auto-fill default address if exists
+        const defaultAddress = response.data.addresses.find(addr => addr.isDefault);
+        if (defaultAddress && !data.firstName) {
+          setData({
+            firstName: defaultAddress.firstName,
+            lastName: defaultAddress.lastName,
+            email: defaultAddress.email,
+            street: defaultAddress.street,
+            city: defaultAddress.city,
+            state: defaultAddress.state,
+            zipcode: defaultAddress.zipcode,
+            country: defaultAddress.country,
+            phone: defaultAddress.phone
+          });
+          setSelectedAddress(defaultAddress._id);
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching addresses:', error);
+    }
+  };
+
   useEffect(() => {
     if (totalAmount === 0) {
       navigate('/cart')
+    } else if (token) {
+      fetchAddresses();
     }
-  }, [totalAmount, navigate]);
+  }, [totalAmount, navigate, token]);
 
   return (
     <form onSubmit={placeOrder} className='place-order'>
       <div className="place-order-left">
-        <p className="title">Delivery Information</p>
+        <div className="delivery-header">
+          <p className="title">Delivery Information</p>
+          {addresses.length > 0 && (
+            <button
+              type="button"
+              className="btn-select-address"
+              onClick={() => setShowAddressList(!showAddressList)}
+            >
+              📍 {showAddressList ? 'Hide' : 'Select'} Address
+            </button>
+          )}
+        </div>
+
+        {showAddressList && addresses.length > 0 && (
+          <div className="saved-addresses-list">
+            {addresses.map((address) => (
+              <div
+                key={address._id}
+                className={`saved-address-item ${selectedAddress === address._id ? 'selected' : ''}`}
+                onClick={() => selectSavedAddress(address)}
+              >
+                <div className="address-content">
+                  <strong>{address.firstName} {address.lastName}</strong>
+                  {address.isDefault && <span className="badge-default">Default</span>}
+                  <p>{address.street}, {address.city}, {address.state} {address.zipcode}</p>
+                  <p>{address.phone}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
         <div className="multi-fields">
           <div className='form-field'><input name='firstName' onChange={onChangeHandler} value={data.firstName} type="text" placeholder='First name' /><p className='error-text'>{errors.firstName}</p></div>
           <div className='form-field'><input name='lastName' onChange={onChangeHandler} value={data.lastName} type="text" placeholder='Last name' /><p className='error-text'>{errors.lastName}</p></div>

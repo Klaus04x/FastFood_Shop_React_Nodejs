@@ -11,6 +11,7 @@ import promoCodeRouter from "./routes/promoCodeRoute.js"
 import categoryRouter from "./routes/categoryRoute.js"
 import statisticsRouter from "./routes/statisticsRoute.js"
 import authRouter from "./routes/authRoute.js"
+import addressRouter from "./routes/addressRoute.js"
 import passport from "./config/passport.js"
 
 // app config
@@ -49,6 +50,7 @@ app.use("/api/promocode", promoCodeRouter)
 app.use("/api/category", categoryRouter)
 app.use("/api/statistics", statisticsRouter)
 app.use("/api/auth", authRouter)
+app.use("/api/address", addressRouter)
 
 
 app.get("/",(req,res)=>{
