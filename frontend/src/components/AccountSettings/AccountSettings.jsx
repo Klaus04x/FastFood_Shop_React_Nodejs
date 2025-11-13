@@ -200,13 +200,20 @@ const AccountSettings = ({ onProfileUpdate }) => {
                 {!isEditing ? (
                     // View Mode
                     <div className="profile-view">
-                        <div className="profile-avatar-large">
-                            {getAvatarDisplay()}
-                            <div className="avatar-fallback" style={{ display: userData.avatar ? 'none' : 'flex' }}>
-                                {getInitials()}
+                        <div className="profile-avatar-section">
+                            <div className="profile-avatar-large">
+                                {getAvatarDisplay()}
+                                <div className="avatar-fallback" style={{ display: userData.avatar ? 'none' : 'flex' }}>
+                                    {getInitials()}
+                                </div>
+                            </div>
+                            <div className="profile-avatar-info">
+                                <h3>{userData.name}</h3>
+                                <p>{userData.email}</p>
                             </div>
                         </div>
-                        <div className="profile-info">
+
+                        <div className="profile-details">
                             <div className="info-row">
                                 <label>Full Name</label>
                                 <p>{userData.name}</p>

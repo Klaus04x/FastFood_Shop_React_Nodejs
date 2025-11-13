@@ -12,6 +12,7 @@ import categoryRouter from "./routes/categoryRoute.js"
 import statisticsRouter from "./routes/statisticsRoute.js"
 import authRouter from "./routes/authRoute.js"
 import addressRouter from "./routes/addressRoute.js"
+import adminRouter from "./routes/adminRoute.js"
 import passport from "./config/passport.js"
 
 // app config
@@ -51,6 +52,7 @@ app.use("/api/category", categoryRouter)
 app.use("/api/statistics", statisticsRouter)
 app.use("/api/auth", authRouter)
 app.use("/api/address", addressRouter)
+app.use("/api/admin", adminRouter)
 
 
 app.get("/",(req,res)=>{

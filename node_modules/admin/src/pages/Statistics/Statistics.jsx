@@ -66,11 +66,19 @@ const Statistics = ({ url }) => {
   const formatNumber = (num) => new Intl.NumberFormat('en-US').format(num);
 
   const calculateChange = (current, previous) => {
-    // Handle undefined, null, or 0 values
     const prev = Number(previous) || 0;
     const curr = Number(current) || 0;
 
-    if (prev === 0) return curr === 0 ? 0 : 100;
+    // If both are 0, no change
+    if (prev === 0 && curr === 0) return 0;
+
+    // If previous is 0 but current has value, show 100% increase
+    if (prev === 0 && curr > 0) return 100;
+
+    // If previous has value but current is 0, show -100% decrease
+    if (prev > 0 && curr === 0) return -100;
+
+    // Normal calculation
     return ((curr - prev) / prev * 100).toFixed(1);
   };
 

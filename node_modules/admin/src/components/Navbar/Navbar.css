@@ -9,9 +9,68 @@
     width: max(10%,80px);
 }
 
-.navbar .profilet{
-    width: 40px;
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
+
+.admin-name {
+    font-size: 14px;
+    color: #4a5568;
+    font-weight: 500;
+}
+
+.profile-container {
+    position: relative;
+}
+
 .navbar .profile{
-    max-width: 60px;
+    max-width: 50px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: transform 0.2s;
+}
+
+.navbar .profile:hover {
+    transform: scale(1.05);
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 8px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 8px;
+    min-width: 140px;
+    z-index: 1000;
+}
+
+.btn-logout {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 12px;
+    background: white;
+    border: none;
+    border-radius: 6px;
+    color: #e53e3e;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-logout:hover {
+    background-color: #fff5f5;
+}
+
+@media (max-width: 768px) {
+    .admin-name {
+        display: none;
+    }
 }
