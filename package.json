@@ -14,6 +14,7 @@
   "scripts": {
     "install:all": "npm install --workspaces",
     "build": "npm run build -ws",
+    "build:production": "node scripts/build-production.js",
     "dev": "npm run dev -ws",
     "start": "npm run start -w backend",
     "kill-ports": "node scripts/killPorts.js",

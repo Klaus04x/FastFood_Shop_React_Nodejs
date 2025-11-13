@@ -21,8 +21,18 @@ const port = 4000
 
 // middleware
 app.use(express.json())
+
+// CORS configuration - support both development and production
+const allowedOrigins = process.env.NODE_ENV === 'production'
+    ? [
+        'https://nguyentienthanh.id.vn',
+        'https://www.nguyentienthanh.id.vn',
+        'https://admin.nguyentienthanh.id.vn'
+      ]
+    : ['http://localhost:5173', 'http://localhost:5174'];
+
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:5174'],
+    origin: allowedOrigins,
     credentials: true
 }))
 
@@ -31,7 +41,10 @@ app.use(session({
     secret: process.env.SESSION_SECRET || 'your-secret-key',
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false } // Set to true if using HTTPS
+    cookie: {
+        secure: process.env.NODE_ENV === 'production', // true for HTTPS in production
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+    }
 }))
 
 // Initialize passport

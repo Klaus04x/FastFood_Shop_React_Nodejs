@@ -31,7 +31,19 @@ npm-debug.log*
 .DS_Store
 Thumbs.db
 
-# Uploads (optional - uncomment if you don't want to upload images)
-# backend/uploads/node_modules/
+# Uploads (keep structure but ignore content)
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Environment files
 **/.env
 .env
+
+# PM2 logs
+.pm2/
+ecosystem.config.js
+
+# Temporary files
+tmp/
+temp/
+*.tmp
