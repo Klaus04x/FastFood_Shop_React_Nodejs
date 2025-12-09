@@ -1,5 +1,7 @@
 # 🍔 Nền tảng Đặt Món Ăn Trực Tuyến FastFood Shop
 
+**Website Demo (HTTPS/SSL):** https://nguyentienthanh.id.vn
+
 Ứng dụng web full-stack đặt món ăn được xây dựng với MERN stack (MongoDB, Express.js, React, Node.js). Bao gồm giao diện khách hàng, bảng quản trị admin và backend API với tích hợp thanh toán Stripe và đăng nhập OAuth.
 
 ## 📋 Mục Lục
@@ -12,6 +14,14 @@
 - [Cấu Hình](#-cấu-hình)
 - [Chạy Ứng Dụng](#-chạy-ứng-dụng)
 - [API Endpoints](#-api-endpoints)
+- [Hình Ảnh Demo](#hình-ảnh-demo)
+
+## Phân Chia Công Việc
+
+| Họ và tên            | MSV           | Nội dung thực hiện                              |
+|----------------------|---------------|-------------------------------------------------|
+| Nguyễn Tiến Thanh    | 22810310382   | Demo login bằng Google, cài đặt HTTPS, SSL      |
+| Phạm Ngọc Huyên      | 22810310376   | Demo login bằng GitHub, cài đặt Firewall        |
 
 ## ✨ Tính Năng
 
@@ -297,6 +307,20 @@ http://localhost:4000/api
 | Method | Endpoint              | Mô tả                  | Yêu cầu Auth |
 |--------|-----------------------|------------------------|--------------|
 | GET    | `/statistics/overview`| Lấy thống kê tổng quan | Có (Admin)   |
+
+## Hình Ảnh Demo
+
+### 1. Trang đăng nhập
+![Trang đăng nhập chính của hệ thống](assets/login_page.jpg)
+
+### 2. Đăng nhập bằng Google (OAuth)
+![Demo đăng nhập bằng tài khoản Google](assets/login_by_google.jpg)
+
+### 3. Đăng nhập bằng GitHub (OAuth)
+![Demo đăng nhập bằng tài khoản GitHub](assets/login_by_github.jpg)
+
+### 4. Chứng nhận HTTPS & SSL (Bảo mật kết nối)
+![Website đã được cài đặt chứng chỉ SSL - HTTPS hợp lệ](assets/https_ssl.jpg)
 
 ## 🤝 Đóng Góp
 

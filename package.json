@@ -27,5 +27,8 @@
   "devDependencies": {
     "concurrently": "^9.2.1",
     "kill-port": "^2.0.1"
+  },
+  "dependencies": {
+    "lucide-react": "^0.554.0"
   }
 }
